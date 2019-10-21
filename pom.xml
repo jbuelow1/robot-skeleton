@@ -75,7 +75,7 @@
 	</repositories>
 
 	<build>
-		<finalName>robot-skeleton.jar</finalName>
+		<finalName>robot-skeleton</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

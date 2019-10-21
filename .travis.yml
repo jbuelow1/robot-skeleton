@@ -8,7 +8,4 @@ deploy:
   provider: releases
   api_key:
     secure: 0eFN1Y3rMaPoP/sLQ3nAsKcDPs2NF6rf8+uXDs+86mG2qhx5Ta2LDvqXnNQ4ttdxbVRL5QPIEXFWw/QXl6558nZSLXtyj+sY23hSkgukefH0Wx/6Ewop4TyiQDJNvJ29K3viZOwbA2AEbC492XxemeLuSjucwYUE8qDTkt6qv+jFX9JWwIKszOM+LoWJN+IHw1Ah8bYdqG/EsFlZ/FjNQTi99Rs/S1s1ZbAcoOECQo6xrBjVEjq3cXTkd0/hFC3zw6/zhasRzYHF65VtQqq8JPwOw5ccL9Hi0GBj5Epl7Trz9Iqw0P5FTfAk7Q/cYMCha2UWblV/IZD96TIlxWLYXcRFa3E13f65nK0n1U/ku5mpdXQE/YdBvpOkxFO8vFJJW/d9Gcft5W0VrirFiRTFsRgBtXOvLp5rrEoAhRc1OCWpQ/wTjBA8xrbu2lb1C9rvhY9Nt0ZW2smjFTOTi3UJEJbXiXCftY3czOumZj8Ttr4btZbLb2NtL67kYsf23RjJdNjrwkh/zYhHyJUTEUk/28x7CjHlpQyy0UhYCyEBbUo3NTbgLYW4mUCvfv3yhbZdQtV+E7f9MJcv8Dw/zKS+TgZeRMWV9kF4InaU+30zHPhJANZlapCy0ybVdOFsgiWfO1gmN5v8cQwzP7u9LAFTJvbYLXJvWOXddCayozFFLRI=
-  file: target/robot-skeleton.jar
-  on:
-    repo: jbuelow1/robot-skeleton
-    branch: master
+  file: target/robot-skeleton.jar\
