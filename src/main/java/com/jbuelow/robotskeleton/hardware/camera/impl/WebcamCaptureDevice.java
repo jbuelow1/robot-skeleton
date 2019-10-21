@@ -1,13 +1,15 @@
-package com.jbuelow.robotskeleton.hardware.camera;
+package com.jbuelow.robotskeleton.hardware.camera.impl;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamDiscoveryEvent;
 import com.github.sarxos.webcam.WebcamDiscoveryListener;
 import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver;
+import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
 import java.awt.image.BufferedImage;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,14 +17,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @EnableScheduling
-public class CameraController {
+@Profile("!noCamera")
+public class WebcamCaptureDevice implements CameraDevice {
 
   private Webcam webcam;
 
   @Getter
   private volatile BufferedImage image;
 
-  public CameraController() {
+  public WebcamCaptureDevice() {
     log.debug("Initializing camera controller module");
     setLibraryOptions();
     webcam = Webcam.getDefault();

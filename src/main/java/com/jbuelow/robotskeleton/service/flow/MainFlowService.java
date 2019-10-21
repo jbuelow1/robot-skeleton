@@ -1,6 +1,8 @@
 package com.jbuelow.robotskeleton.service.flow;
 
-import com.jbuelow.robotskeleton.hardware.camera.CameraController;
+import com.github.sarxos.webcam.WebcamDevice;
+import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
+import com.jbuelow.robotskeleton.hardware.camera.impl.WebcamCaptureDevice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,11 @@ public class MainFlowService {
 
   private boolean running = false;
 
-  private final CameraController cameraController;
+  private final CameraDevice webcam;
 
-  public MainFlowService(CameraController cameraController) {
+  public MainFlowService(CameraDevice webcam) {
     log.debug("Initializing flow service");
-    this.cameraController = cameraController;
+    this.webcam = webcam;
   }
 
 }

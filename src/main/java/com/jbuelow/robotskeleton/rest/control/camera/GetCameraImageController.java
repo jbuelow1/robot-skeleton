@@ -1,6 +1,7 @@
 package com.jbuelow.robotskeleton.rest.control.camera;
 
-import com.jbuelow.robotskeleton.hardware.camera.CameraController;
+import com.github.sarxos.webcam.WebcamDevice;
+import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
 import com.jbuelow.robotskeleton.rest.response.impl.SimpleImageResponse;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -15,15 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class GetCameraImageController {
 
-  private final CameraController cameraController;
+  private final CameraDevice webcam;
 
-  public GetCameraImageController(CameraController cameraController) {
-    this.cameraController = cameraController;
+  public GetCameraImageController(CameraDevice webcam) {
+    this.webcam = webcam;
   }
 
   @RequestMapping("/control/camera/getsnapshot")
   public SimpleImageResponse getImageSnapshot() {
-    BufferedImage img = cameraController.getImage();
+    BufferedImage img = webcam.getImage();
 
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     String outB64 = "";

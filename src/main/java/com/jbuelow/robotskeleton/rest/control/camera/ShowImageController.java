@@ -1,6 +1,8 @@
 package com.jbuelow.robotskeleton.rest.control.camera;
 
-import com.jbuelow.robotskeleton.hardware.camera.CameraController;
+import com.github.sarxos.webcam.WebcamDevice;
+import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
+import com.jbuelow.robotskeleton.hardware.camera.impl.WebcamCaptureDevice;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,15 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Slf4j
 public class ShowImageController {
 
-  private final CameraController cameraController;
+  private final CameraDevice webcam;
 
-  public ShowImageController(CameraController cameraController) {
-    this.cameraController = cameraController;
+  public ShowImageController(CameraDevice webcam) {
+    this.webcam = webcam;
   }
 
   @GetMapping("/control/camera/showimage")
   public @ResponseBody String showImage(Model model) {
-    BufferedImage img = cameraController.getImage();
+    BufferedImage img = webcam.getImage();
 
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     String outB64 = "";
