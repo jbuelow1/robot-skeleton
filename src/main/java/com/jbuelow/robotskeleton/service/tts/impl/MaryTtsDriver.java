@@ -13,6 +13,7 @@ import marytts.MaryInterface;
 import marytts.exceptions.MaryConfigurationException;
 import marytts.exceptions.SynthesisException;
 import marytts.signalproc.effects.LpcWhisperiserEffect;
+import marytts.signalproc.effects.RobotiserEffect;
 import marytts.signalproc.effects.StadiumEffect;
 import org.springframework.stereotype.Service;
 
