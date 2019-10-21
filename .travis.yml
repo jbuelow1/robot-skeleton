@@ -4,6 +4,8 @@ jdk:
 before_deploy:
 - export TRAVIS_TAG=$(git log --format=%h -1)
 - git tag $TRAVIS_TAG
+- ls
+- ls target
 deploy:
   provider: releases
   api_key:
