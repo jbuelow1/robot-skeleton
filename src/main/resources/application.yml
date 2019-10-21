@@ -1,0 +1,4 @@
+logging:
+  level:
+    Root: info
+    com.jbuelow: debug
