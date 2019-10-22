@@ -4,8 +4,10 @@ jdk:
 before_deploy:
 - export TRAVIS_TAG=$(git log --format=%h -1)
 - git tag $TRAVIS_TAG
-- sha256sum target/robot-skeleton.jar > target/robot-skeleton.jar.sha265
-- md5sum target/robot-skeleton.jar > target/robot-skeleton.jar.md5
+- cd target
+- sha256sum robot-skeleton.jar > robot-skeleton.jar.sha265
+- md5sum robot-skeleton.jar > robot-skeleton.jar.md5
+- cd ../
 deploy:
   provider: releases
   api_key:
