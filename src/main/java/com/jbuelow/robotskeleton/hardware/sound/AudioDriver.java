@@ -14,14 +14,14 @@ public class AudioDriver {
 
   public void playAudio(AudioInputStream stream)
       throws IOException, LineUnavailableException {
-    Clip clip = AudioSystem.getClip();
+    Clip clip = AudioSystem.getClip(AudioSystem.getMixerInfo()[1]);
     clip.open(stream);
     clip.start();
   }
 
   public void playAudio(File in)
       throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-    Clip clip = AudioSystem.getClip();
+    Clip clip = AudioSystem.getClip(AudioSystem.getMixerInfo()[1]);
     clip.open(AudioSystem.getAudioInputStream(in));
     clip.start();
   }
