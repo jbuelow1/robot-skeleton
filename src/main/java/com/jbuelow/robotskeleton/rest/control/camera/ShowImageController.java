@@ -1,8 +1,6 @@
 package com.jbuelow.robotskeleton.rest.control.camera;
 
-import com.github.sarxos.webcam.WebcamDevice;
 import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
-import com.jbuelow.robotskeleton.hardware.camera.impl.WebcamCaptureDevice;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
