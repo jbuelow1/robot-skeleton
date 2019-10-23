@@ -22,7 +22,7 @@ public class SetServoController {
   @RequestMapping("/control/setservo")
   public Response setServo(
       @RequestParam(value = "servo") int servo,
-      @RequestParam(value = "value") int value) throws IOException {
+      @RequestParam(value = "value") float value) throws IOException {
 
     pwmDevice.getChannel(servo).setServoPulse(value);
     log.info("servo {} has been set to {} via a manual REST request.", servo, value);
