@@ -22,7 +22,7 @@ public class MainFlowService {
     this.webcam = webcam;
     this.pwmDevice = pwmDevice;
 
-    pwmDevice.setPWMFreqency(60);
+    pwmDevice.setPWMFreqency(50);
   }
 
 }
