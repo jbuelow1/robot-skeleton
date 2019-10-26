@@ -1,4 +1,4 @@
-package com.jbuelow.robotskeleton.service.lines.impl;
+package com.jbuelow.robotskeleton.service.lines;
 
 import com.jbuelow.robotskeleton.service.animation.Keyframe;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.jbuelow.robotskeleton.service.lines.impl;
+package com.jbuelow.robotskeleton.service.lines;
 
 import org.springframework.stereotype.Service;
 
