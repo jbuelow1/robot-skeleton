@@ -1,5 +1,7 @@
 package com.jbuelow.robotskeleton.hardware.sound.impl;
 
+import static com.jbuelow.robotskeleton.hardware.sound.impl.SimpleAudioOutputDriver.getWorkingClipMixer;
+
 import com.jbuelow.robotskeleton.hardware.motor.servo.PwmChannel;
 import com.jbuelow.robotskeleton.hardware.motor.servo.PwmDevice;
 import com.jbuelow.robotskeleton.hardware.sound.AudioOutput;
@@ -51,10 +53,11 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
 
     log.debug("Raw data is {} bytes long.", sampleByteArray.length);
     log.debug("Audio type is {}", inStream.getFormat());
+    log.debug("Avaliable audio mixers: {}", AudioSystem.getMixerInfo());
     log.debug("There are {} frames in our raw pcm audio array.", sampleShortArray.length);
     AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(sampleByteArray), inStream.getFormat(), inStream.getFrameLength());
 
-    Clip clip = AudioSystem.getClip();
+    Clip clip = getWorkingClipMixer();
     clip.open(ais);
     clip.addLineListener(ll);
     clip.start();
