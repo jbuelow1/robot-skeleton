@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MainFlowService {
 
+  private final PwmDevice pwmDevice;
   private boolean running = false;
 
   private final CameraDevice webcam;
-  private final PwmDevice pwmDevice;
 
   public MainFlowService(CameraDevice webcam, PwmDevice pwmDevice) throws IOException {
     log.debug("Initializing flow service");
     this.webcam = webcam;
     this.pwmDevice = pwmDevice;
-
     pwmDevice.setPWMFreqency(50);
   }
 

@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 import javax.annotation.PostConstruct;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.sound.sampled.Mixer.Info;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import lombok.extern.slf4j.Slf4j;
@@ -39,19 +42,21 @@ public class SimpleAudioOutputDriver implements AudioOutput {
 
   static void playAudioInputStream(AudioInputStream ais)
       throws LineUnavailableException, IOException {
-    Clip clip = getWorkingClipMixer();
+    Clip clip = AudioSystem.getClip(getWorkingClipMixer());
     clip.open(ais);
     clip.start();
   }
 
-  static Clip getWorkingClipMixer() {
+  static Info getWorkingClipMixer() {
     Info[] mixers = AudioSystem.getMixerInfo();
-    Clip outMixer = null;
+    Info outMixer = null;
     for (Info mixer:mixers) {
       try {
         log.debug("Trying mixer {}", mixer);
-        outMixer = AudioSystem.getClip(mixer);
+        Clip testClip = AudioSystem.getClip(mixer);
+        testClip.open(new AudioFormat(Encoding.PCM_SIGNED, 16000, 16, 1, 2, 1600, true), new byte[26], 0, 10);
         log.debug("Mixer {} appears to be working", mixer);
+        outMixer = mixer;
         break;
       } catch (LineUnavailableException e) {
         log.debug("Mixer {} is unavailable.", mixer);

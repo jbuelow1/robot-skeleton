@@ -57,7 +57,7 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
     log.debug("There are {} frames in our raw pcm audio array.", sampleShortArray.length);
     AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(sampleByteArray), inStream.getFormat(), inStream.getFrameLength());
 
-    Clip clip = getWorkingClipMixer();
+    Clip clip = AudioSystem.getClip(getWorkingClipMixer());
     clip.open(ais);
     clip.addLineListener(ll);
     clip.start();
