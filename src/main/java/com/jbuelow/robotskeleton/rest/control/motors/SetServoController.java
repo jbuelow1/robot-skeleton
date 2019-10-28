@@ -24,8 +24,10 @@ public class SetServoController {
       @RequestParam(value = "servo") int servo,
       @RequestParam(value = "value") float value) throws IOException {
 
-    pwmDevice.getChannel(servo).setServoPulse(value);
-    log.info("servo {} has been set to {} via a manual REST request.", servo, value);
+    float floatingPoint = (float) value / 1000;
+
+    pwmDevice.getChannel(servo).setServoPulse(floatingPoint);
+    log.info("Servo #{} pulse length has been set to {}ms via a manual REST request.", servo, floatingPoint);
 
     return new SuccessfulNoMoreInfo();
   }
