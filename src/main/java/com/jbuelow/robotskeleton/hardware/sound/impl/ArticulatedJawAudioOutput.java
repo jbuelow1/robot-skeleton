@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@Profile("noHardware")
+@Profile("!noHardware")
 public class ArticulatedJawAudioOutput implements AudioOutput {
 
   private final PwmDevice pwmDevice;
