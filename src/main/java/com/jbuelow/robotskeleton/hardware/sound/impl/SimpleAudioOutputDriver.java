@@ -39,7 +39,7 @@ public class SimpleAudioOutputDriver implements AudioOutput {
 
   static void playAudioInputStream(AudioInputStream ais)
       throws LineUnavailableException, IOException {
-    Clip clip = AudioSystem.getClip();
+    Clip clip = getWorkingClipMixer();
     clip.open(ais);
     clip.start();
   }
