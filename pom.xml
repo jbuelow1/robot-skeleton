@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.jbuelow</groupId>
 	<artifactId>robot-skeleton</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>robot-skeleton</name>
 	<description>Control software for a robot skeleton.</description>
 
