@@ -51,13 +51,13 @@ public class SimpleAudioOutputDriver implements AudioOutput {
       try {
         log.debug("Trying mixer {}", mixer);
         outMixer = AudioSystem.getClip(mixer);
+        log.debug("Mixer {} appears to be working", mixer);
         break;
       } catch (LineUnavailableException e) {
         log.debug("Mixer {} is unavailable.", mixer);
       }
     }
     if (Objects.nonNull(outMixer)) {
-      log.debug("Mixer {} appears to be working", outMixer);
       return outMixer;
     }
     log.error("Could not find a usable mixer");
