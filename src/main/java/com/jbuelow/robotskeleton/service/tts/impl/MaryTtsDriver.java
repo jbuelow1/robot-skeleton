@@ -1,20 +1,13 @@
 package com.jbuelow.robotskeleton.service.tts.impl;
 
-import com.jbuelow.robotskeleton.hardware.sound.AudioDriver;
 import com.jbuelow.robotskeleton.service.tts.TtsProvider;
-import java.io.IOException;
-import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.LineUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 import marytts.LocalMaryInterface;
 import marytts.MaryInterface;
 import marytts.exceptions.MaryConfigurationException;
 import marytts.exceptions.SynthesisException;
-import marytts.signalproc.effects.LpcWhisperiserEffect;
-import marytts.signalproc.effects.RobotiserEffect;
-import marytts.signalproc.effects.StadiumEffect;
 import org.springframework.stereotype.Service;
 
 @Slf4j
