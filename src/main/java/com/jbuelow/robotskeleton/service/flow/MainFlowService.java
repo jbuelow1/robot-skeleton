@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class MainFlowService {
+public class MainFlowService implements Flow {
 
   private final PwmDevice pwmDevice;
   private boolean running = false;
@@ -24,4 +24,15 @@ public class MainFlowService {
     pwmDevice.setPWMFreqency(50);
   }
 
+  @Override
+  public void start() {
+    running = true;
+    log.info("Starting MainFlow");
+  }
+
+  @Override
+  public void stop() {
+    running = false;
+    log.info("Stopping MainFlow");
+  }
 }
