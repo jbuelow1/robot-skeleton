@@ -19,7 +19,7 @@ public class SetServoController {
     this.pwmDevice = pwmDevice;
   }
 
-  @RequestMapping("/control/setservo")
+  @RequestMapping("/control/servo/set")
   public Response setServo(
       @RequestParam(value = "servo") int servo,
       @RequestParam(value = "value") int value) throws IOException {
@@ -29,6 +29,18 @@ public class SetServoController {
     pwmDevice.getChannel(servo).setServoPulse(floatingPoint);
     log.info("Servo #{} pulse length has been set to {}ms via a manual REST request.", servo, floatingPoint);
 
+    return new SuccessfulNoMoreInfo();
+  }
+
+  @RequestMapping("/control/servo/release")
+  public Response releaseServo(
+      @RequestParam(value = "servo", defaultValue = "-1") int servo
+  ) throws IOException {
+    if (servo != -1) {
+      pwmDevice.getChannel(servo).setPWM(0,0);
+    } else {
+      pwmDevice.setAllPWM(0,0);
+    }
     return new SuccessfulNoMoreInfo();
   }
 }
