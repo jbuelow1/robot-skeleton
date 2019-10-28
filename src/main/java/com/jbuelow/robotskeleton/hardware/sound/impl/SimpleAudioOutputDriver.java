@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("!noHardware")
+@Profile("noHardware")
 public class SimpleAudioOutputDriver implements AudioOutput {
 
   @Override
