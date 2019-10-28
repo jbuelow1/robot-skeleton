@@ -5,13 +5,12 @@ import java.time.Instant;
 import lombok.Getter;
 
 @Getter
-public class SuccessfulNoMoreInfo implements Response {
+public class SuccessfulNoMoreInfo extends Response {
 
-  private final Instant time;
   private final boolean success;
 
   public SuccessfulNoMoreInfo() {
-    this.time = Instant.now();
+    super();
     this.success = true;
   }
 

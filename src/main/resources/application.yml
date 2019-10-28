@@ -2,4 +2,4 @@ logging:
   file: robot-skeleton.log
   level:
     Root: info
-    com.jbuelow: debug
+    com.jbuelow: trace
