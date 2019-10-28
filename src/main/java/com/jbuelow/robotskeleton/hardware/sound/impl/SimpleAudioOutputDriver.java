@@ -57,6 +57,7 @@ public class SimpleAudioOutputDriver implements AudioOutput {
       }
     }
     if (Objects.nonNull(outMixer)) {
+      log.debug("Mixer {} appears to be working", outMixer);
       return outMixer;
     }
     log.error("Could not find a usable mixer");
