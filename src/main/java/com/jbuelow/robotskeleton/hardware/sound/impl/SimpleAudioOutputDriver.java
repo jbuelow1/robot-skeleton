@@ -48,25 +48,35 @@ public class SimpleAudioOutputDriver implements AudioOutput {
   }
 
   static Info getWorkingClipMixer() {
+    return AudioSystem.getMixerInfo()[1];
+    /*
     Info[] mixers = AudioSystem.getMixerInfo();
     Info outMixer = null;
     for (Info mixer:mixers) {
+      Clip testClip = null;
       try {
         log.debug("Trying mixer {}", mixer);
-        Clip testClip = AudioSystem.getClip(mixer);
+        testClip = AudioSystem.getClip(mixer);
         testClip.open(new AudioFormat(Encoding.PCM_SIGNED, 16000, 16, 1, 2, 1600, true), new byte[26], 0, 10);
+        testClip.close();
         log.debug("Mixer {} appears to be working", mixer);
         outMixer = mixer;
         break;
-      } catch (LineUnavailableException e) {
-        log.debug("Mixer {} is unavailable.", mixer);
+      } catch (LineUnavailableException | IllegalArgumentException e) {
+        log.debug("Mixer {} is unavailable.", mixer, e);
+      } finally {
+        try {
+          testClip.close();
+        } catch (NullPointerException | IllegalStateException e) {
+          log.debug("Attempt to close line failed because it is already closed.");
+        }
       }
     }
     if (Objects.nonNull(outMixer)) {
       return outMixer;
     }
     log.error("Could not find a usable mixer");
-    throw new RuntimeException("No mixers are working");
+    throw new RuntimeException("No mixers are working");*/
   }
 
 }
