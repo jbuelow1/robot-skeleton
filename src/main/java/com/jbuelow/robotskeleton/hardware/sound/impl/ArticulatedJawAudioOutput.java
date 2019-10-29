@@ -17,6 +17,7 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineEvent.Type;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer.Info;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -29,6 +30,7 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
 
   private final PwmDevice pwmDevice;
   private Boolean playing = false;
+  Clip clip = null;
 
   public ArticulatedJawAudioOutput(PwmDevice pwmDevice) {
     this.pwmDevice = pwmDevice;
@@ -43,6 +45,7 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
       public void update(LineEvent event) {
         if (event.getType() == Type.STOP) {
           playing = false;
+          clip.close();
         }
       }
     };
@@ -57,7 +60,8 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
     log.debug("There are {} frames in our raw pcm audio array.", sampleShortArray.length);
     AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(sampleByteArray), inStream.getFormat(), inStream.getFrameLength());
 
-    Clip clip = AudioSystem.getClip(getWorkingClipMixer());
+    Info mixer = getWorkingClipMixer();
+    clip = AudioSystem.getClip(mixer);
     clip.open(ais);
     clip.addLineListener(ll);
     clip.start();
@@ -68,8 +72,11 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
     while (playing) {
       log.trace("Clip is still playing...");
       float level = getLevel(clip, sampleShortArray);
-      level = Math.min(level, 1f);
-      pwmChannel.setServoPulse(level*2);
+      level = Math.min(level, 0.7f);
+      level = Math.max(level, 0f);
+      if (!Float.isNaN(level)) {
+        pwmChannel.setServoPulse(level+1.3f);
+      }
       log.trace("Current line level is {}", level);
       try {
         Thread.sleep(20);
@@ -77,13 +84,11 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
         throw new RuntimeException(e);
       }
     }
-
-
   }
 
   private float getLevel(Clip clip, short[] inputSamples) {
     int position = clip.getFramePosition();
-    short[] sampleData = new short[position+300<inputSamples.length?300:inputSamples.length-position];
+    short[] sampleData = new short[position+100<inputSamples.length?100:inputSamples.length-position];
     for (int i = 0; i < sampleData.length; i++) {
       sampleData[i] = inputSamples[position+i];
     }
