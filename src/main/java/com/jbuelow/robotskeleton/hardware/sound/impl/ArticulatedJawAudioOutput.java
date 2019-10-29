@@ -84,6 +84,7 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
         throw new RuntimeException(e);
       }
     }
+    pwmChannel.setServoPulse(1.3f);
   }
 
   private float getLevel(Clip clip, short[] inputSamples) {
