@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -23,7 +24,7 @@ public class ShowImageController {
   }
 
   @GetMapping("/control/camera/showimage")
-  public @ResponseBody String showImage(Model model) {
+  public @ResponseBody String showImage(@RequestParam(value = "refresh", defaultValue = "true") String refresh) {
     BufferedImage img = webcam.getImage();
 
     ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -36,7 +37,8 @@ public class ShowImageController {
       log.error("Exception occoured during base64 encoding of image", e);
     }
 
-    return "<meta http-equiv=\"refresh\" content=\"0.5\"><img src=\"data:image/jpeg;base64, " + outB64 + "\"/>";
+    return (refresh.equals("true")
+        ?"<meta http-equiv=\"refresh\" content=\"0.5\">":"")+"<img src=\"data:image/jpeg;base64, " + outB64 + "\"/>";
   }
 
 }

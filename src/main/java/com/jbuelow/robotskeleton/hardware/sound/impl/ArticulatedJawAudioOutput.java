@@ -64,11 +64,11 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
     clip = AudioSystem.getClip(mixer);
     clip.open(ais);
     clip.addLineListener(ll);
-    clip.start();
-    playing = true;
 
     PwmChannel pwmChannel = pwmDevice.getChannel(0);
 
+    clip.start();
+    playing = true;
     while (playing) {
       log.trace("Clip is still playing...");
       float level = getLevel(clip, sampleShortArray);
@@ -93,7 +93,8 @@ public class ArticulatedJawAudioOutput implements AudioOutput {
     for (int i = 0; i < sampleData.length; i++) {
       sampleData[i] = inputSamples[position+i];
     }
-    return (float) rootMeanSquare(sampleData);
+    //return (float) rootMeanSquare(sampleData);
+    return (float) sampleData[1]/Short.MAX_VALUE;
   }
 
   @Override
