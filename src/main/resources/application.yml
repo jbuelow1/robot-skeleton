@@ -3,6 +3,3 @@ logging:
   level:
     Root: info
     com.jbuelow: trace
-spring:
-  profiles:
-    active: noCV
