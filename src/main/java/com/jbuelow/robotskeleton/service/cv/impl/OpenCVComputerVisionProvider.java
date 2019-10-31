@@ -4,6 +4,10 @@ import com.jbuelow.robotskeleton.hardware.camera.CameraDevice;
 import com.jbuelow.robotskeleton.service.cv.ComputerVision;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import nu.pattern.OpenCV;
@@ -11,10 +15,11 @@ import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -25,6 +30,9 @@ public class OpenCVComputerVisionProvider implements ComputerVision {
   private final CameraDevice cameraDevice;
   private final CascadeClassifier faceDetector;
 
+  @Value("classpath:cascades/haarcascade_frontalface_alt.xml")
+  private Resource res;
+
   public OpenCVComputerVisionProvider(CameraDevice cameraDevice) {
     this.cameraDevice = cameraDevice;
     OpenCV.loadShared();
@@ -33,9 +41,17 @@ public class OpenCVComputerVisionProvider implements ComputerVision {
   }
 
   @PostConstruct
-  public void loadOpenCV() {
+  public void loadOpenCV() throws IOException {
     log.debug("Loading Cascade");
-    faceDetector.load("C:\\Users\\jdbue\\IdeaProjects\\robot-skeleton\\src\\main\\resources\\haarcascade_frontalface_alt.xml");
+    String tempDir="tmp";
+    Path tmp = Files.createTempFile(tempDir, "cv");
+    Files.copy(res.getInputStream(), tmp,
+        StandardCopyOption.REPLACE_EXISTING);
+    faceDetector.load(tmp.toString());
+
+    if (faceDetector.empty()) {
+      throw new RuntimeException("Cascade is empty!");
+    }
   }
 
   @Override
